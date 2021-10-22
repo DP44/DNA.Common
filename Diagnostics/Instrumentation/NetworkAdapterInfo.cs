@@ -10,9 +10,7 @@ namespace DNA.Diagnostics.Instrumentation
 	public class NetworkAdapterInfo
 	{
 		private IPAddress[] _ipAddreses;
-
 		private bool _physical;
-
 		private string _macAddress;
 
 		public bool Physical
@@ -56,6 +54,7 @@ namespace DNA.Diagnostics.Instrumentation
 			string macAddress = (string)mo["MacAddress"];
 			string[] array = (string[])mo["IPAddress"];
 			List<IPAddress> list = new List<IPAddress>();
+		
 			if (array != null)
 			{
 				foreach (string ipString in array)
@@ -63,6 +62,7 @@ namespace DNA.Diagnostics.Instrumentation
 					list.Add(IPAddress.Parse(ipString));
 				}
 			}
+
 			return new NetworkAdapterInfo(macAddress, list.ToArray(), physical);
 		}
 	}

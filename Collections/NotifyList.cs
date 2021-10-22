@@ -212,7 +212,8 @@ namespace DNA.Collections
 		/// <summary>
 		/// Amount of items in the list.
 		/// </summary>
-		public int Count => this._list.Count;
+		public int Count => 
+			this._list.Count;
 		
 		/// <summary>
 		/// Is the list read only?

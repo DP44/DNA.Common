@@ -6,34 +6,29 @@ namespace DNA.Data.Distributed
 {
 	public class DistributedDataStore
 	{
-		private Dictionary<Guid, DistributedRecord> _records = new Dictionary<Guid, DistributedRecord>();
+		private Dictionary<Guid, DistributedRecord> _records = 
+			new Dictionary<Guid, DistributedRecord>();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public void Set(DistributedRecord record)
-		{
+		public void Set(DistributedRecord record) =>
 			this._records[record.ID] = record;
-		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public void Remove(DistributedRecord record)
-		{
+		public void Remove(DistributedRecord record) =>
 			this._records.Remove(record.ID);
-		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public void Remove(Guid id)
-		{
+		public void Remove(Guid id) =>
 			this._records.Remove(id);
-		}
 
 		/// <summary>
 		/// 

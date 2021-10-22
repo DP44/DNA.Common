@@ -26,14 +26,11 @@ namespace DNA.Drawing.Curves.Splines
 			/// </summary>
 			public Vector3 Location
 			{
-				get
-				{
-					return this._location;
-				}
-				set
-				{
+				get =>
+					this._location;
+				
+				set =>
 					this._location = value;
-				}
 			}
 
 			/// <summary>
@@ -41,68 +38,56 @@ namespace DNA.Drawing.Curves.Splines
 			/// </summary>
 			public Vector3 Handle
 			{
-				get
-				{
-					return this._handle;
-				}
-				set
-				{
+				get => 
+					this._handle;
+				
+				set =>
 					this._handle = value;
-				}
 			}
 
 			/// <summary>
 			/// 
 			/// </summary>
-			public override int GetHashCode()
-			{
+			public override int GetHashCode() =>
 				throw new NotImplementedException();
-			}
 
 			/// <summary>
 			/// 
 			/// </summary>
 			/// <param name=""></param>
-			public bool Equals(QuadraticBezierCurve.ControlPoint other)
-			{
+			public bool Equals(QuadraticBezierCurve.ControlPoint other) =>
 				throw new NotImplementedException();
-			}
 
 			/// <summary>
 			/// 
 			/// </summary>
 			/// <param name=""></param>
-			public override bool Equals(object obj)
-			{
-				return obj.GetType() == typeof(QuadraticBezierCurve.ControlPoint) && this.Equals((QuadraticBezierCurve.ControlPoint)obj);
-			}
+			public override bool Equals(object obj) =>
+				obj.GetType() == typeof(QuadraticBezierCurve.ControlPoint) && 
+				this.Equals((QuadraticBezierCurve.ControlPoint)obj);
 
-			public static bool operator == (QuadraticBezierCurve.ControlPoint a, QuadraticBezierCurve.ControlPoint b)
-			{
-				return a.Equals(b);
-			}
+			public static bool operator == (QuadraticBezierCurve.ControlPoint a, 
+											QuadraticBezierCurve.ControlPoint b) =>
+				a.Equals(b);
 
-			public static bool operator != (QuadraticBezierCurve.ControlPoint a, QuadraticBezierCurve.ControlPoint b)
-			{
-				return !a.Equals(b);
-			}
+			public static bool operator != (QuadraticBezierCurve.ControlPoint a, 
+											QuadraticBezierCurve.ControlPoint b) =>
+				!a.Equals(b);
 		}
 
-		private List<QuadraticBezierCurve.ControlPoint> _controlPoints = new List<QuadraticBezierCurve.ControlPoint>();
+		private List<QuadraticBezierCurve.ControlPoint> _controlPoints = 
+			new List<QuadraticBezierCurve.ControlPoint>();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		public List<QuadraticBezierCurve.ControlPoint> ControlPoints
 		{
-			get
-			{
-				return this._controlPoints;
-			}
-			set
-			{
+			get => 
+				this._controlPoints;
+		
+			set => 
 				this._controlPoints = value;
-			}
 		}
 
 		/// <summary>
@@ -111,15 +96,20 @@ namespace DNA.Drawing.Curves.Splines
 		/// <param name=""></param>
 		public override Vector3 ComputeValue(float t)
 		{
-			int controlPointIndex = Spline.GetControlPointIndex(this._controlPoints.Count, ref t);
-			return QuadraticBezierCurve.ComputeValue(t, this.ControlPoints[controlPointIndex], this.ControlPoints[controlPointIndex + 1]);
+			int controlPointIndex = Spline.GetControlPointIndex(
+				this._controlPoints.Count, ref t);
+			
+			return QuadraticBezierCurve.ComputeValue(t, 
+				this.ControlPoints[controlPointIndex], 
+				this.ControlPoints[controlPointIndex + 1]);
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		private static Vector3 ComputeValue(float t, QuadraticBezierCurve.ControlPoint cp1, QuadraticBezierCurve.ControlPoint cp2)
+		private static Vector3 ComputeValue(float t, QuadraticBezierCurve.ControlPoint cp1, 
+											QuadraticBezierCurve.ControlPoint cp2)
 		{
 			Vector3 location = cp1.Location;
 			Vector3 handle = cp1.Handle;
@@ -141,19 +131,15 @@ namespace DNA.Drawing.Curves.Splines
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public override Vector3 ComputeVelocity(float t)
-		{
+		public override Vector3 ComputeVelocity(float t) =>
 			throw new NotImplementedException("The method or operation is not implemented.");
-		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public override Vector3 ComputeAcceleration(float t)
-		{
+		public override Vector3 ComputeAcceleration(float t) =>
 			throw new NotImplementedException("The method or operation is not implemented.");
-		}
 
 		/// <summary>
 		/// 
@@ -168,19 +154,13 @@ namespace DNA.Drawing.Curves.Splines
 		/// <summary>
 		/// 
 		/// </summary>
-		public override int GetHashCode()
-		{
+		public override int GetHashCode() =>
 			throw new NotImplementedException();
-		}
 
-		public static bool operator == (QuadraticBezierCurve a, QuadraticBezierCurve b)
-		{
+		public static bool operator == (QuadraticBezierCurve a, QuadraticBezierCurve b) =>
 			throw new NotImplementedException();
-		}
 
-		public static bool operator != (QuadraticBezierCurve a, QuadraticBezierCurve b)
-		{
+		public static bool operator != (QuadraticBezierCurve a, QuadraticBezierCurve b) =>
 			throw new NotImplementedException();
-		}
 	}
 }

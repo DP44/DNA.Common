@@ -29,7 +29,8 @@ namespace DNA.Audio
 			
 			try
 			{
-				this._streamBank = new WaveBank(this._engine, "Content\\" + name + "Streaming.xwb", 0, 32);
+				this._streamBank = new WaveBank(this._engine, 
+					"Content\\" + name + "Streaming.xwb", 0, 32);
 			}
 			catch
 			{
@@ -40,17 +41,16 @@ namespace DNA.Audio
 			{
 				this._engine.Update();
 			}
-			while ((this._streamBank != null && !this._streamBank.IsPrepared) || !this._waveBank.IsPrepared);
+			while ((this._streamBank != null && !this._streamBank.IsPrepared) || 
+				   !this._waveBank.IsPrepared);
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public float GetGlobalVarible(string varibleName)
-		{
-			return this._engine.GetGlobalVariable(varibleName);
-		}
+		public float GetGlobalVarible(string varibleName) =>
+			this._engine.GetGlobalVariable(varibleName);
 		
 		/// <summary>
 		/// 
@@ -71,19 +71,15 @@ namespace DNA.Audio
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public AudioCategory GetCatagory(string name)
-		{
-			return this._engine.GetCategory(name);
-		}
+		public AudioCategory GetCatagory(string name) =>
+			this._engine.GetCategory(name);
 		
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public Cue GetCue(string name)
-		{
-			return this._soundBank.GetCue(name);
-		}
+		public Cue GetCue(string name) =>
+			this._soundBank.GetCue(name);
 		
 		/// <summary>
 		/// 
@@ -123,28 +119,71 @@ namespace DNA.Audio
 				{
 					try
 					{
-						this.SetGlobalVarible("ReverbReflectionsGain", this.ReverbSettings.ReflectionsGain);
-						this.SetGlobalVarible("ReverbReverbGain", this.ReverbSettings.ReverbGain);
-						this.SetGlobalVarible("ReverbDecayTime", this.ReverbSettings.DecayTime);
-						this.SetGlobalVarible("ReverbReflectionsDelay", this.ReverbSettings.ReflectionsDelay);
-						this.SetGlobalVarible("ReverbReverbDelay", this.ReverbSettings.ReverbDelay);
-						this.SetGlobalVarible("ReverbRearDelay", this.ReverbSettings.RearDelay);
-						this.SetGlobalVarible("ReverbRoomSize", this.ReverbSettings.RoomSize);
-						this.SetGlobalVarible("ReverbDensity", this.ReverbSettings.Density);
-						this.SetGlobalVarible("ReverbLowEQGain", this.ReverbSettings.LowEQGain);
-						this.SetGlobalVarible("ReverbLowEQCutoff", this.ReverbSettings.LowEQCutoff);
-						this.SetGlobalVarible("ReverbHighEQGain", this.ReverbSettings.HighEQGain);
-						this.SetGlobalVarible("ReverbHighEQCutoff", this.ReverbSettings.HighEQCutoff);
-						this.SetGlobalVarible("ReverbPositionLeft", this.ReverbSettings.PositionLeft);
-						this.SetGlobalVarible("ReverbPositionRight", this.ReverbSettings.PositionRight);
-						this.SetGlobalVarible("ReverbPositionLeftMatrix", this.ReverbSettings.PositionLeftMatrix);
-						this.SetGlobalVarible("ReverbPositionRightMatrix", this.ReverbSettings.PositionRightMatrix);
-						this.SetGlobalVarible("ReverbEarlyDiffusion", this.ReverbSettings.EarlyDiffusion);
-						this.SetGlobalVarible("ReverbLateDiffusion", this.ReverbSettings.LateDiffusion);
-						this.SetGlobalVarible("ReverbRoomFilterMain", this.ReverbSettings.RoomFilterMain);
-						this.SetGlobalVarible("ReverbRoomFilterFrequency", this.ReverbSettings.RoomFilterFrequency);
-						this.SetGlobalVarible("ReverbRoomFilterHighFrequency", this.ReverbSettings.RoomFilterHighFrequency);
-						this.SetGlobalVarible("ReverbWetDryMix", this.ReverbSettings.WetDryMix);
+						this.SetGlobalVarible("ReverbReflectionsGain", 
+							this.ReverbSettings.ReflectionsGain);
+						
+						this.SetGlobalVarible("ReverbReverbGain", 
+							this.ReverbSettings.ReverbGain);
+						
+						this.SetGlobalVarible("ReverbDecayTime", 
+							this.ReverbSettings.DecayTime);
+						
+						this.SetGlobalVarible("ReverbReflectionsDelay", 
+							this.ReverbSettings.ReflectionsDelay);
+						
+						this.SetGlobalVarible("ReverbReverbDelay", 
+							this.ReverbSettings.ReverbDelay);
+						
+						this.SetGlobalVarible("ReverbRearDelay", 
+							this.ReverbSettings.RearDelay);
+						
+						this.SetGlobalVarible("ReverbRoomSize", 
+							this.ReverbSettings.RoomSize);
+						
+						this.SetGlobalVarible("ReverbDensity", 
+							this.ReverbSettings.Density);
+						
+						this.SetGlobalVarible("ReverbLowEQGain", 
+							this.ReverbSettings.LowEQGain);
+						
+						this.SetGlobalVarible("ReverbLowEQCutoff", 
+							this.ReverbSettings.LowEQCutoff);
+						
+						this.SetGlobalVarible("ReverbHighEQGain", 
+							this.ReverbSettings.HighEQGain);
+						
+						this.SetGlobalVarible("ReverbHighEQCutoff", 
+							this.ReverbSettings.HighEQCutoff);
+						
+						this.SetGlobalVarible("ReverbPositionLeft", 
+							this.ReverbSettings.PositionLeft);
+						
+						this.SetGlobalVarible("ReverbPositionRight", 
+							this.ReverbSettings.PositionRight);
+						
+						this.SetGlobalVarible("ReverbPositionLeftMatrix", 
+							this.ReverbSettings.PositionLeftMatrix);
+						
+						this.SetGlobalVarible("ReverbPositionRightMatrix", 
+							this.ReverbSettings.PositionRightMatrix);
+						
+						this.SetGlobalVarible("ReverbEarlyDiffusion", 
+							this.ReverbSettings.EarlyDiffusion);
+						
+						this.SetGlobalVarible("ReverbLateDiffusion", 
+							this.ReverbSettings.LateDiffusion);
+						
+						this.SetGlobalVarible("ReverbRoomFilterMain", 
+							this.ReverbSettings.RoomFilterMain);
+						
+						this.SetGlobalVarible("ReverbRoomFilterFrequency", 
+							this.ReverbSettings.RoomFilterFrequency);
+						
+						this.SetGlobalVarible("ReverbRoomFilterHighFrequency", 
+							this.ReverbSettings.RoomFilterHighFrequency);
+						
+						this.SetGlobalVarible("ReverbWetDryMix", 
+							this.ReverbSettings.WetDryMix);
 					}
 					catch
 					{
@@ -155,7 +194,8 @@ namespace DNA.Audio
 		
 			LinkedListNode<SoundCue3D> next;
 			
-			for (LinkedListNode<SoundCue3D> linkedListNode = this._activeSounds.First; linkedListNode != null; linkedListNode = next)
+			for (LinkedListNode<SoundCue3D> linkedListNode = this._activeSounds.First; 
+				 linkedListNode != null; linkedListNode = next)
 			{
 				next = linkedListNode.Next;
 			

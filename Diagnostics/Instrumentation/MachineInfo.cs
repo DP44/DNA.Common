@@ -352,34 +352,34 @@ namespace DNA.Diagnostics.Instrumentation
 
 		private void GetHardDisks()
 		{
-			List<HardDiskInfo> list = new List<HardDiskInfo>();
+			List<HardDiskInfo> hardDiskInfoList = new List<HardDiskInfo>();
+			
 			if (this._wmiSupported)
 			{
-				ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
-				using (ManagementObjectCollection.ManagementObjectEnumerator enumerator = managementObjectSearcher.Get().GetEnumerator())
+				foreach (ManagementObject wmi_HD 
+					in new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive").Get())
 				{
-					while (enumerator.MoveNext())
-					{
-						ManagementBaseObject managementBaseObject = enumerator.Current;
-						ManagementObject wmi_HD = (ManagementObject)managementBaseObject;
-						list.Add(HardDiskInfo.FromManagmentObject(wmi_HD));
-					}
-					goto IL_8A;
+					hardDiskInfoList.Add(HardDiskInfo.FromManagmentObject(wmi_HD));
 				}
 			}
-			for (int i = 0; i < 16; i++)
+			else
 			{
-				string physicalDriveName = "\\\\.\\PhysicalDrive" + i.ToString();
-				try
+				for (int index = 0; index < 16; ++index)
 				{
-					list.Add(HardDiskInfo.GetPhysicalDriveInfo(physicalDriveName));
-				}
-				catch
-				{
+					string physicalDriveName = "\\\\.\\PhysicalDrive" + index.ToString();
+					
+					try
+					{
+						hardDiskInfoList.Add(HardDiskInfo.GetPhysicalDriveInfo(physicalDriveName));
+					}
+					catch
+					{
+						// Swallow exceptions.
+					}
 				}
 			}
-			IL_8A:
-			this._hardDisks = list.ToArray();
+
+			this._hardDisks = hardDiskInfoList.ToArray();
 		}
 
 		private void GetLogicalDrives()

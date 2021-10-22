@@ -21,12 +21,7 @@ namespace DNA.Avatars.Actions
 		/// <param name=""></param>
 		protected override void OnStart(Entity entity) 
 		{
-			#if DECOMPILED
-				Avatar avatar = (Avatar)entity;
-				avatar.Expression = this._expression;
-			#else
-				((Avatar)entity).Expression = this._expression;
-			#endif
+			((Avatar)entity).Expression = this._expression;
 			
 			base.OnStart(entity);
 		}
