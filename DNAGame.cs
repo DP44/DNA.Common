@@ -124,7 +124,7 @@ namespace DNA
 		}
 
 		public Version Version =>
-				this._version;
+			this._version;
 
 		public RenderTarget2D OffScreenBuffer =>
 			this._offscreenBuffer;
@@ -174,7 +174,8 @@ namespace DNA
 
 		public GameTime CurrentGameTime
 		{
-			get => this._currentGameTime;
+			get => 
+				this._currentGameTime;
 
 			set
 			{
@@ -379,7 +380,7 @@ namespace DNA
 			this.processMessages = false;
 			
 			NetworkSession.BeginCreate(sessionType, gamers, maxPlayers, 0, properties, 
-				gameName, networkVersion, serverMessage, password, delegate(IAsyncResult result)
+				gameName, networkVersion, serverMessage, password, (AsyncCallback)(result =>
 			{
 				SuccessCallback successCallback = (SuccessCallback)result.AsyncState;
 				
@@ -415,7 +416,7 @@ namespace DNA
 				}
 				
 				this.processMessages = true;
-			}, callback);
+			}), callback);
 		}
 
 		public void JoinInvitedGame(ulong lobbyId, int version, string gameName, 
@@ -429,7 +430,7 @@ namespace DNA
 			try
 			{
 				NetworkSession.BeginJoinInvited(lobbyId, version, gameName, gamers, 
-					delegate(IAsyncResult result)
+					(AsyncCallback)(result =>
 				{
 					SuccessCallbackWithMessage successCallbackWithMessage = 
 						(SuccessCallbackWithMessage)result.AsyncState;
@@ -453,7 +454,7 @@ namespace DNA
 					}
 					
 					this.processMessages = true;
-				}, callback, getPasswordCallback);
+				}), callback, getPasswordCallback);
 			}
 			catch (Exception ex)
 			{
@@ -475,7 +476,7 @@ namespace DNA
 			string failureMessage = null;
 			
 			NetworkSession.BeginJoin(session, gameName, version, password, gamers, 
-				delegate(IAsyncResult result)
+				(AsyncCallback)(result =>
 			{
 				bool success = true;
 				SuccessCallbackWithMessage successCallbackWithMessage = 
@@ -497,7 +498,7 @@ namespace DNA
 				}
 				
 				this.processMessages = true;
-			}, callback);
+			}), callback);
 		}
 
 		public void JoinGame(AvailableNetworkSession session, IList<SignedInGamer> gamers, 

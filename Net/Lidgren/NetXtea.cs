@@ -7,24 +7,14 @@ namespace DNA.Net.Lidgren
 	public sealed class NetXtea : NetBlockEncryptionBase
 	{
 		private const int c_blockSize = 8;
-
 		private const int c_keySize = 16;
-
 		private const int c_delta = -1640531527;
 
 		private readonly int m_numRounds;
-
 		private readonly uint[] m_sum0;
-
 		private readonly uint[] m_sum1;
 
-		public override int BlockSize
-		{
-			get
-			{
-				return 8;
-			}
-		}
+		public override int BlockSize => 8;
 
 		public NetXtea(byte[] key, int rounds)
 		{
@@ -32,19 +22,25 @@ namespace DNA.Net.Lidgren
 			{
 				throw new NetException("Key too short!");
 			}
+			
 			this.m_numRounds = rounds;
+			
 			this.m_sum0 = new uint[this.m_numRounds];
 			this.m_sum1 = new uint[this.m_numRounds];
+			
 			uint[] array = new uint[8];
 			int i;
 			int num = i = 0;
+			
 			while (i < 4)
 			{
 				array[i] = BitConverter.ToUInt32(key, num);
 				i++;
 				num += 4;
 			}
+			
 			num = (i = 0);
+			
 			while (i < 32)
 			{
 				this.m_sum0[i] = (uint)(num + (int)array[num & 3]);
@@ -54,23 +50,23 @@ namespace DNA.Net.Lidgren
 			}
 		}
 
-		public NetXtea(byte[] key) : this(key, 32)
-		{
-		}
+		public NetXtea(byte[] key) 
+			: this(key, 32) {}
 
-		public NetXtea(string key) : this(SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(key)), 32)
-		{
-		}
+		public NetXtea(string key) 
+			: this(SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(key)), 32) {}
 
 		protected override void EncryptBlock(byte[] source, int sourceOffset, byte[] destination)
 		{
 			uint num = NetXtea.BytesToUInt(source, sourceOffset);
 			uint num2 = NetXtea.BytesToUInt(source, sourceOffset + 4);
+			
 			for (int num3 = 0; num3 != this.m_numRounds; num3++)
 			{
 				num += ((num2 << 4 ^ num2 >> 5) + num2 ^ this.m_sum0[num3]);
 				num2 += ((num << 4 ^ num >> 5) + num ^ this.m_sum1[num3]);
 			}
+			
 			NetXtea.UIntToBytes(num, destination, 0);
 			NetXtea.UIntToBytes(num2, destination, 4);
 		}
@@ -79,11 +75,13 @@ namespace DNA.Net.Lidgren
 		{
 			uint num = NetXtea.BytesToUInt(source, sourceOffset);
 			uint num2 = NetXtea.BytesToUInt(source, sourceOffset + 4);
+			
 			for (int i = this.m_numRounds - 1; i >= 0; i--)
 			{
 				num2 -= ((num << 4 ^ num >> 5) + num ^ this.m_sum1[i]);
 				num -= ((num2 << 4 ^ num2 >> 5) + num2 ^ this.m_sum0[i]);
 			}
+			
 			NetXtea.UIntToBytes(num, destination, 0);
 			NetXtea.UIntToBytes(num2, destination, 4);
 		}

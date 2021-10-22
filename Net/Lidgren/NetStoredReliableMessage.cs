@@ -5,9 +5,7 @@ namespace DNA.Net.Lidgren
 	internal struct NetStoredReliableMessage
 	{
 		public int NumSent;
-
 		public float LastSent;
-
 		public NetOutgoingMessage Message;
 
 		public void Reset()
