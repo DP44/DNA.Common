@@ -64,7 +64,9 @@ namespace DNA.Runtime.InteropServices.Win32.IPHelper
 			}
 			
 			GlobalBuffer globalBuffer = new GlobalBuffer(size);
-			Win32ErrorCode adaptersInfo = IPHelperAPI.GetAdaptersInfo(globalBuffer.Pointer, ref size);
+		
+			Win32ErrorCode adaptersInfo = IPHelperAPI.GetAdaptersInfo(
+				globalBuffer.Pointer, ref size);
 			
 			if (adaptersInfo != Win32ErrorCode.Success)
 			{
@@ -76,7 +78,9 @@ namespace DNA.Runtime.InteropServices.Win32.IPHelper
 			
 			do
 			{
-				IPHelperAPI.IPAdapterInfo ipadapterInfo = (IPHelperAPI.IPAdapterInfo)Marshal.PtrToStructure(intPtr, typeof(IPHelperAPI.IPAdapterInfo));
+				IPHelperAPI.IPAdapterInfo ipadapterInfo = 
+					(IPHelperAPI.IPAdapterInfo)Marshal.PtrToStructure(
+						intPtr, typeof(IPHelperAPI.IPAdapterInfo));
 				
 				ulong num = 0UL;
 				int num2 = 0;

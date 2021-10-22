@@ -7,10 +7,15 @@ namespace DNA.Runtime.Serialization
 {
 	public class DefaultSerializationBinder : SerializationBinder
 	{
-		public Dictionary<Type, Type> TypeReplacements = new Dictionary<Type, Type>();
-		public Dictionary<string, string> TypeNameReplacements = new Dictionary<string, string>();
+		public Dictionary<Type, Type> TypeReplacements = 
+			new Dictionary<Type, Type>();
+	
+		public Dictionary<string, string> TypeNameReplacements = 
+			new Dictionary<string, string>();
 
-		public override void BindToName(Type serializedType, out string assemblyName, out string typeName)
+		public override void BindToName(Type serializedType, 
+										out string assemblyName, 
+										out string typeName)
 		{
 			assemblyName = serializedType.Assembly.FullName;
 			typeName = serializedType.FullName;
@@ -46,14 +51,8 @@ namespace DNA.Runtime.Serialization
 			
 			if (type == null)
 			{
-				throw new SerializationException(string.Concat(new string[]
-				{
-					"Type ",
-					typeName,
-					" ",
-					assemblyName,
-					" Not Found"
-				}));
+				throw new SerializationException(string.Concat(
+					"Type ", typeName, " ", assemblyName, " Not Found"));
 			}
 			
 			return type;

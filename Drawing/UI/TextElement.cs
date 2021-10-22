@@ -25,14 +25,11 @@ namespace DNA.Drawing.UI
 		/// </summary>
 		public TimeSpan PulseTime
 		{
-			get
-			{
-				return this._pulseTime;
-			}
-			set
-			{
+			get => 
+				this._pulseTime;
+		
+			set => 
 				this._pulseTime = value;
-			}
 		}
 
 		/// <summary>
@@ -40,14 +37,11 @@ namespace DNA.Drawing.UI
 		/// </summary>
 		public float PulseSize
 		{
-			get
-			{
-				return this._pulseSize;
-			}
-			set
-			{
+			get => 
+				this._pulseSize;
+	
+			set => 
 				this._pulseSize = value;
-			}
 		}
 
 		/// <summary>
@@ -55,17 +49,22 @@ namespace DNA.Drawing.UI
 		/// </summary>
 		public string Text
 		{
-			get
-			{
-				return this._text;
-			}
+			get => 
+				this._text;
+			
 			set
 			{
-				if (this._text != value)
+				// Make sure it isn't already set to that.
+				// 
+				// NOTE: We do this as overwriting the text elements with the same thing
+				//       can sometimes lead to weird issues with flickering text.
+				if (this._text == value)
 				{
-					this._text = value;
-					this._dirtyText = true;
+					return;
 				}
+
+				this._text = value;
+				this._dirtyText = true;
 			}
 		}
 
@@ -74,14 +73,11 @@ namespace DNA.Drawing.UI
 		/// </summary>
 		public Color OutlineColor
 		{
-			get
-			{
-				return this._outLineColor;
-			}
-			set
-			{
+			get => 
+				this._outLineColor;
+			
+			set => 
 				this._outLineColor = value;
-			}
 		}
 
 		/// <summary>
@@ -89,21 +85,19 @@ namespace DNA.Drawing.UI
 		/// </summary>
 		public int OutlineWidth
 		{
-			get
-			{
-				return this._outLineWidth;
-			}
-			set
-			{
+			get => 
+				this._outLineWidth;
+		
+			set => 
 				this._outLineWidth = value;
-			}
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public TextElement(SpriteFont font, string text, Vector2 position, Color color, Color outlineColor, int outlineWidth)
+		public TextElement(SpriteFont font, string text, Vector2 position, 
+						   Color color, Color outlineColor, int outlineWidth)
 		{
 			this.Text = text;
 			this.Font = font;
@@ -139,57 +133,47 @@ namespace DNA.Drawing.UI
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		public TextElement(SpriteFont font)
-		{
+		public TextElement(SpriteFont font) =>
 			this.Font = font;
-		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		public override Vector2 Size
 		{
-			get
-			{
-				return this.Font.MeasureString(this.Text);
-			}
-			set
-			{
+			get =>
+				this.Font.MeasureString(this.Text);
+
+			set =>
 				throw new NotSupportedException();
-			}
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		protected virtual Color GetForColor(bool selected)
-		{
-			return base.Color;
-		}
+		protected virtual Color GetForColor(bool selected) =>
+			base.Color;
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		protected virtual void ProcessText(string text, StringBuilder builder)
-		{
+		protected virtual void ProcessText(string text, StringBuilder builder) =>
 			builder.Append(text);
-		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		protected void DirtyText()
-		{
+		protected void DirtyText() =>
 			this._dirtyText = true;
-		}
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name=""></param>
-		protected override void OnDraw(GraphicsDevice device, SpriteBatch spriteBatch, GameTime gameTime, bool selected)
+		protected override void OnDraw(GraphicsDevice device, SpriteBatch spriteBatch, 
+									   GameTime gameTime, bool selected)
 		{
 			if (this._dirtyText)
 			{
@@ -221,17 +205,23 @@ namespace DNA.Drawing.UI
 					}
 				}
 				
-				float scale = (float)(1.0 + (double)this.PulseSize * this._currenPulseTime.TotalSeconds / this._pulseTime.TotalSeconds) * (this.ScaleOnScreenResize ? Screen.Adjuster.ScaleFactor.Y : 1f);
+				float scale = (float)(1.0 + (double)this.PulseSize * 
+					this._currenPulseTime.TotalSeconds / this._pulseTime.TotalSeconds) * 
+						(this.ScaleOnScreenResize ? Screen.Adjuster.ScaleFactor.Y : 1f);
+				
 				Vector2 vector = new Vector2(this.Size.X / 2f, this.Size.Y / 2f);
 				
 				if (this.OutlineWidth > 0)
 				{
-					spriteBatch.DrawOutlinedText(this.Font, this._textToDraw, base.Location + vector, this.GetForColor(selected), this.OutlineColor, this.OutlineWidth, scale, 0f, vector);
-					return;
+					spriteBatch.DrawOutlinedText(this.Font, this._textToDraw, 
+						base.Location + vector, this.GetForColor(selected), this.OutlineColor, 
+						this.OutlineWidth, scale, 0f, vector);
 				}
-				
-				spriteBatch.DrawString(this.Font, this._textToDraw, base.Location + vector, this.GetForColor(selected), 0f, vector, scale, SpriteEffects.None, 1f);
-				return;
+				else
+				{
+					spriteBatch.DrawString(this.Font, this._textToDraw, base.Location + vector, 
+						this.GetForColor(selected), 0f, vector, scale, SpriteEffects.None, 1f);
+				}
 			}
 			else
 			{
@@ -239,12 +229,17 @@ namespace DNA.Drawing.UI
 				
 				if (this.OutlineWidth > 0)
 				{
-					spriteBatch.DrawOutlinedText(this.Font, this._textToDraw, base.Location, this.GetForColor(selected), this.OutlineColor, (int)Math.Ceiling((double)((float)this.OutlineWidth * num)), num, 0f, new Vector2(0f, 0f));
-					return;
+					spriteBatch.DrawOutlinedText(this.Font, this._textToDraw, base.Location, 
+						this.GetForColor(selected), this.OutlineColor, 
+						(int)Math.Ceiling((double)((float)this.OutlineWidth * num)), 
+						num, 0f, new Vector2(0f, 0f));
+				} 
+				else
+				{
+					spriteBatch.DrawString(this.Font, this._textToDraw, base.Location, 
+						this.GetForColor(selected), 0f, new Vector2(0f, 0f), num, 
+						SpriteEffects.None, 0f);
 				}
-
-				spriteBatch.DrawString(this.Font, this._textToDraw, base.Location, this.GetForColor(selected), 0f, new Vector2(0f, 0f), num, SpriteEffects.None, 0f);
-				return;
 			}
 		}
 	}

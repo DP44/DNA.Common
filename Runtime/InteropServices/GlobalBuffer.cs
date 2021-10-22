@@ -9,26 +9,14 @@ namespace DNA.Runtime.InteropServices
 		private uint _size;
 		private bool _disposed;
 
-		public IntPtr Pointer
-		{
-			get
-			{
-				return this._buffer;
-			}
-		}
+		public IntPtr Pointer => 
+			this._buffer;
 
-		public uint Size
-		{
-			get
-			{
-				return this._size;
-			}
-		}
+		public uint Size => 
+			this._size;
 
-		public static implicit operator IntPtr(GlobalBuffer buffer)
-		{
-			return buffer.Pointer;
-		}
+		public static implicit operator IntPtr(GlobalBuffer buffer) =>
+			buffer.Pointer;
 
 		public GlobalBuffer(uint size)
 		{
@@ -57,11 +45,14 @@ namespace DNA.Runtime.InteropServices
 
 		private void Dispose(bool disposing)
 		{
-			if (!this._disposed)
+			// Make sure it hasn't been disposed of already.
+			if (this._disposed)
 			{
-				Marshal.FreeHGlobal(this._buffer);
-				this._disposed = true;
+				return;
 			}
+
+			Marshal.FreeHGlobal(this._buffer);
+			this._disposed = true;
 		}
 
 		~GlobalBuffer()
