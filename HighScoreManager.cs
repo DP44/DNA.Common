@@ -87,7 +87,7 @@ namespace DNA
 			// Ensure that the number of scores isn't over the maximum amount set.
 			if (this._scores.Count <= this.MaxScores)
 			{
-				return
+				return;
 			}
 
 			this._scores.RemoveRange(this.MaxScores, this._scores.Count - this.MaxScores);

@@ -6,9 +6,7 @@ namespace DNA.Drawing.UI
 	{
 		public object Tag;
 
-		public SelectedEventArgs()
-		{
-		}
+		public SelectedEventArgs() {}
 
 		public SelectedEventArgs(object tag)
 		{
